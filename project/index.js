@@ -2,7 +2,6 @@ var endereco = 'https://api.unsplash.com/'
 var chaveAPI = '&client_id=dd4e1cb73ca3a1036d4e98d26f72a439141dc17039e1ae79b7bc2a23f3488578'
 var carregamento = endereco+ "photos?order_by=latest" + chaveAPI;
 
-
 function carregar(){
 	$.ajax({
 	  	url : carregamento,
@@ -51,9 +50,25 @@ function criarFoto(foto) {
   container.appendChild(divPrincipal);
 }
 
+function procurar() {
+  var inputText = document.getElementById("inputText");
+  if(inputText.value == "") {
+    alert("campo vazio")
+  }
+  else {
+    alert(inputText.value)
+  }
+
+}
+
 
 function programarCarregamentoPagina() {
   $(window).on("load", carregar);
 }
 
+function programarBotaoSearch() {
+  $('#butaoSearch').on("click", procurar)
+}
+
 programarCarregamentoPagina();
+programarBotaoSearch();

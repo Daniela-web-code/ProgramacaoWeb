@@ -16,48 +16,32 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head> <!-- Document Head Ends -->
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light" aria-label="abc">
         <div class="container-fluid">
-          <i class="fas fa-hat-wizard"></i>
+          <em class="fas fa-hat-wizard"></em>
           <a class="navbar-brand">Image Wizard</a>
           <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" id="inputText" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" id="butaoSearch">Search</button>
           </form>
         </div>
       </nav>
       
+
+
       <div class="container">
         <div class="row" id="contentorFilmes">
     
           <div class="card col-3">
-            <img src="https://images.unsplash.com/photo-1611581893305-ec40e53882fc?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=MXw0ODE0MnwwfDF8YWxsfDI2fHx8fHx8Mnw\u0026ixlib=rb-1.2.1\u0026q=85">
+            <img src="https://images.unsplash.com/photo-1611581893305-ec40e53882fc?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=MXw0ODE0MnwwfDF8YWxsfDI2fHx8fHx8Mnw\u0026ixlib=rb-1.2.1\u0026q=85" alt="image">
             <div class="card-body">
               <h5 class="card-title">Wonder Woman</h5>
             </div>
           </div>
-    
-
+  
         </div>
       </div>
 
-    <!-- Modal -->
-      <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Search Error</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Please provide a valid search text.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- Pagination -->
       <div class="container">
