@@ -16,15 +16,14 @@ function carregar(){
       
   
 function adicionarFotos(data) {
-     var arrayDeFotos = data;
-
-     for (var i=0; i<arrayDeFotos.length; i++) {
-      var foto = arrayDeFotos[i];
-      criarFoto(foto);
+  var arrayDeFotos = data;
+  for (var i=0; i<arrayDeFotos.length; i++) {
+  var foto = arrayDeFotos[i];
+  criarFoto(foto);
+  }
 }
-
+//falta adicionar a descriçao e formatar os tamanhos
 function criarFoto(foto) {
-
   // criar h5
   var h5 = document.createElement("h5");
   h5.className = "card-title";
@@ -53,12 +52,8 @@ function criarFoto(foto) {
 }
 
 
+function programarCarregamentoPagina() {
+  $(window).on("load", carregar);
 }
-
-   function programarCarregamentoPagina() {
-    $(window).on("load", carregar);
-  }
-
-
 
 programarCarregamentoPagina();
