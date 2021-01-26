@@ -1,0 +1,29 @@
+nav {
+    display: flex;
+    flex-wrap: nowrap!important;
+    justify-content: space-between!important;
+    align-items: center;
+}
+.container-fluid {
+    display: initial!important;
+    justify-content: flex-start;
+}
+.search {
+    padding-right: var(--bs-gutter-x,.75rem);
+    padding-left: var(--bs-gutter-x,.75rem);
+}
+.form-control {
+    width: 200px;
+}
+.row {
+    text-align: center;
+    padding-bottom: 12px;
+}
+.rowPagination {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+.fas, .fa-hat-wizard {
+    
+}

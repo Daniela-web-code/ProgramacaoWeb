@@ -1,8 +1,10 @@
-var endereco = 'https://api.unsplash.com/'
-var chaveAPI = '&client_id=dd4e1cb73ca3a1036d4e98d26f72a439141dc17039e1ae79b7bc2a23f3488578'
-var carregamento = endereco+ "photos?order_by=latest" + chaveAPI;
+var pagina = 1;
 
 function carregar(){
+  var endereco = 'https://api.unsplash.com/photos?orderby=lastest&per_page=24&page='
+  var chaveAPI = '&client_id=dd4e1cb73ca3a1036d4e98d26f72a439141dc17039e1ae79b7bc2a23f3488578'
+  var carregamento = endereco + pagina + chaveAPI;
+
 	$.ajax({
 	  	url : carregamento,
 	  	type:"get",
@@ -15,12 +17,16 @@ function carregar(){
       
   
 function adicionarFotos(data) {
+  $('#container-images').empty();
+
   var arrayDeFotos = data;
   for (var i=0; i<arrayDeFotos.length; i++) {
-  var foto = arrayDeFotos[i];
-  criarFoto(foto);
+    var foto = arrayDeFotos[i];
+    criarFoto(foto);
   }
 }
+
+
 //falta adicionar a descriçao e formatar os tamanhos
 function criarFoto(foto) {
   // criar h5
@@ -46,7 +52,7 @@ function criarFoto(foto) {
   divPrincipal.appendChild(div);
 
   // adicionar div pai à pagina/DOM
-  var container = document.getElementById("contentorFilmes");
+  var container = document.getElementById("container-images");
   container.appendChild(divPrincipal);
 }
 
@@ -61,14 +67,53 @@ function procurar() {
 
 }
 
+function anterior() {
+  if (pagina == 1) {
+    document.getElementById("previous").disabled = true;
+    document.getElementById("next").disabled = false;
+    alert("ESTOU AQUI");
+  }
+    
+  else {
+    pagina--;
+    carregar();
+  }
+}
+
+
+function seguinte() {
+  var fotos = data.total_photos;
+ 
+  if (pagina == fotos) {
+    document.getElementById("previous").disabled = false;
+    document.getElementById("next").disabled = true;
+    alert("ESTOU AQUI");
+  }
+
+  else {
+    pagina++;
+    carregar();
+  }
+
+}
+
+
+function programarBotoesPaginacao() {
+  var botaoAnterior = document.getElementById("previous");
+  var botaoSeguinte = document.getElementById("next");
+
+  botaoAnterior.addEventListener("click", anterior);
+  botaoSeguinte.addEventListener("click", seguinte);
+}
 
 function programarCarregamentoPagina() {
   $(window).on("load", carregar);
 }
 
 function programarBotaoSearch() {
-  $('#butaoSearch').on("click", procurar)
+  $('#searchButton').on("click", procurar);
 }
 
 programarCarregamentoPagina();
 programarBotaoSearch();
+programarBotoesPaginacao();
