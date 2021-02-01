@@ -27,19 +27,26 @@ function adicionarFotos(data) {
   }
 }
 
-
 //falta adicionar a descriçao e formatar os tamanhos
 function criarFoto(foto) {
+  var i = document.createElement("i");
+  i.className = "fas fa-download";
+
+
   // criar h5
   var h5 = document.createElement("h5");
   h5.className = "card-title";
   h5.innerText = foto.user.name;
 
+  var divIcon = document.createElement("div");
+  divIcon.className = "icon";
+  divIcon.appendChild(i);
+
   // criar div filha
   var div = document.createElement("div");
   div.className = "card-body";
   div.appendChild(h5);
-  
+
   // criar img
   var img = document.createElement("img");
   img.className = "card-img-top";
@@ -51,6 +58,8 @@ function criarFoto(foto) {
   divPrincipal.className = "card col-3";
   divPrincipal.appendChild(img);
   divPrincipal.appendChild(div);
+  divPrincipal.appendChild(divIcon);
+  
 
   // adicionar div pai à pagina/DOM
   var container = document.getElementById("container-images");
