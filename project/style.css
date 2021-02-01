@@ -28,3 +28,9 @@ nav {
     float: right;
     padding-bottom: 12px;
 }
+a {
+    color: darkgrey;
+}
+a:hover {
+    color: darkgrey;
+}

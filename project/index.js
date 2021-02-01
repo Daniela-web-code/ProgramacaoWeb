@@ -27,20 +27,28 @@ function adicionarFotos(data) {
   }
 }
 
+
 //falta adicionar a descriçao e formatar os tamanhos
 function criarFoto(foto) {
+  // criar icon
   var i = document.createElement("i");
   i.className = "fas fa-download";
 
+  // criar download
+  var a = document.createElement("a");
+  a.className = "download";
+  a.setAttribute("href", foto.urls.raw);
+  a.appendChild(i);
 
   // criar h5
   var h5 = document.createElement("h5");
   h5.className = "card-title";
   h5.innerText = foto.user.name;
 
+  // criar div icon
   var divIcon = document.createElement("div");
-  divIcon.className = "icon";
-  divIcon.appendChild(i);
+  divIcon.className = "download";
+  divIcon.appendChild(a);
 
   // criar div filha
   var div = document.createElement("div");
@@ -59,7 +67,6 @@ function criarFoto(foto) {
   divPrincipal.appendChild(img);
   divPrincipal.appendChild(div);
   divPrincipal.appendChild(divIcon);
-  
 
   // adicionar div pai à pagina/DOM
   var container = document.getElementById("container-images");
