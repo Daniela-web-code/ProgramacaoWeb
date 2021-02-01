@@ -19,6 +19,7 @@ function carregar(){
 function adicionarFotos(data) {
   $('#container-images').empty();
 
+  
   var arrayDeFotos = data;
   for (var i=0; i<arrayDeFotos.length; i++) {
     var foto = arrayDeFotos[i];
