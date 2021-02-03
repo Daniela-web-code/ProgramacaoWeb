@@ -22,17 +22,16 @@
             <a class="navbar-brand">Image Wizard</a>
         </div>
         <div class="search">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="inputText">
-                <button class="btn btn-outline-success" type="submit" id="searchButton">Search</button>
-              </form>
+            <div class="d-flex">
+                <input class="form-control me-2" placeholder="Search" aria-label="Search" id="inputText">
+                <button type="button" class="btn btn-outline-success" id="searchButton" data-toggle="modal" data-target="#modal_list">Search</button>
+              </div>
         </div>
     </nav>
       
       <div class="container">
         <div class="row" id="container-images">
-    
-          <div class="card col-3">
+          <div class="card col-3" id="123">
             <img src="https://images.unsplash.com/photo-1611581893305-ec40e53882fc?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=MXw0ODE0MnwwfDF8YWxsfDI2fHx8fHx8Mnw\u0026ixlib=rb-1.2.1\u0026q=85">
             <div class="card-body">
               <h5 class="card-title">Wonder Woman</h5>
@@ -46,26 +45,29 @@
         </div>
       </div>
 
-    <!-- Modal -->
-      <div class="modal" tabindex="-1">
-        <div class="modal-dialog">
+
+    
+      
+      <!--Modal para erro na procura-->
+      <div class="modal fade" tabindex="-1" id="modal_list" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Search Error</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Please provide a valid search text.</p>
+              <p>Please provide a valid Search text.</p>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer" id = "botaoCloseModal">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"  data-target="#modal_list">Close</button>
             </div>
           </div>
         </div>
       </div>
 
+
       <!-- Pagination -->
-      <!--
+
       <div class="rowPagination" aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item"><a class="page-link" href="#" id="previous">Previous</a></li>
