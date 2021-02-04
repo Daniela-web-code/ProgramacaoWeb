@@ -34,6 +34,7 @@ function mostrarPagina0Results() { // mostrar um 0 results, falta completar
 
   var divPrincipal = document.createElement("div");
   divPrincipal.className = "card col-3";
+divPrincipal.id = "foto";	
   divPrincipal.appendChild(h5);
   divPrincipal.appendChild(img);
   divPrincipal.appendChild(h5_2);
