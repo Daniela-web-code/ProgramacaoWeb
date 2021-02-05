@@ -1,9 +1,10 @@
-var pagina = 1;
+  let paginaAtual = 1;
+  let totalPaginas;
 
 function carregar(){
   var endereco = 'https://api.unsplash.com/photos?orderby=lastest&per_page=24&page='
   var chaveAPI = '&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc'
-  var carregamento = endereco + pagina + chaveAPI;
+  var carregamento = endereco + paginaAtual + chaveAPI;
 
 	$.ajax(
     {
@@ -54,6 +55,7 @@ function adicionarFotos(data) {
     criarFoto(foto);
   }
 }
+
 
 function adicionarFotosProcura(data) {
   $('#container-images').empty();
@@ -117,6 +119,7 @@ function criarFoto(foto) {
 
 function procurar() {
 
+
   var inputText = document.getElementById("inputText");
   if(inputText.value == "") 
   { 
@@ -126,8 +129,9 @@ function procurar() {
 
   else{ 
     var enderecoprocura = 'https://api.unsplash.com/search/photos?query=';
-    var chaveAPI = '&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
-    var enderecoProcuraCompleto = enderecoprocura + inputText.value + chaveAPI;
+    var pagina = '&page='
+    var chaveAPI = '&per_page=24&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
+    var enderecoProcuraCompleto = enderecoprocura + inputText.value + pagina + paginaAtual + chaveAPI;
     $.ajax(
       {
         url : enderecoProcuraCompleto,
@@ -139,6 +143,8 @@ function procurar() {
               mostrarPagina0Results();
            }else{
             adicionarFotosProcura(data);
+
+            
            }
           
          }
@@ -154,34 +160,51 @@ function fecharModal() {
 }
 
 
-function anterior() {
-  if (pagina == 1) {
-    document.getElementById("previous").disabled = true;
-    document.getElementById("next").disabled = false;
+function anterior(faseCarregamento) {//o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
+  paginaAtual --;
+  console.log(paginaAtual);
+  carregar();
+  /*if (paginaAtual == 1) {
+    //document.getElementById("previous").disabled = true;
+    //document.getElementById("next").disabled = false;
     alert("ESTOU AQUI");
   }
     
-  else {
+  else { // Pode vir de carregar ou procurar
+    if (faseCarregamento == "carregar") {
+      carregar();
+    }
     pagina--;
-    carregar();
+    procurar();
+  }*/
+}
+
+function inativarPrevious() {
+  if (paginaAtual == 1) {
+    alert("estive")
+  $('#previous2').removeClass('page-item').addClass('page-item disabled');
+  }
+  else {
+    $('#previous2').removeClass('page-item disabled').addClass('page-item');
   }
 }
 
-
-function seguinte() {
-  var fotos = data.total_photos;
- 
+function seguinte(faseCarregamento) { //o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
+  paginaAtual++;
+  console.log(paginaAtual);
+  carregar();
+ /*
   if (pagina == fotos) {
-    document.getElementById("previous").disabled = false;
-    document.getElementById("next").disabled = true;
+    //document.getElementById("previous").disabled = false;
+    //document.getElementById("next").disabled = true;
     alert("ESTOU AQUI");
   }
 
   else {
     pagina++;
-    carregar();
+    procurar();
   }
-
+*/
 }
 
 function programarBotaoClosemodal() {
@@ -205,7 +228,12 @@ function programarBotaoSearch() {
   $('#searchButton').on("click", procurar);
 }
 
+function programarAvisoPagina() {
+    $(window).on("load", inativarPrevious);
+}
+
 programarBotaoClosemodal();
 programarCarregamentoPagina();
 programarBotaoSearch();
 programarBotoesPaginacao();
+programarAvisoPagina();
