@@ -185,6 +185,10 @@ function criarFoto(foto) {
   h5.className = "card-title";
   h5.innerText = foto.user.name;
 
+  var descricao = document.createElement("p");
+  descricao.className = "card-text";
+  descricao.innerText = foto.description;
+
   // criar div icon
   var divIcon = document.createElement("div");
   divIcon.className = "download";
@@ -194,11 +198,16 @@ function criarFoto(foto) {
   var div = document.createElement("div");
   div.className = "card-body";
   div.appendChild(h5);
+  if(foto.description !== null) 
+    {
+    div.appendChild(descricao);
+  }
+  
 
   // criar img
   var img = document.createElement("img");
   img.className = "card-img-top";
-  var imgSrc = foto.urls.full;
+  var imgSrc = foto.urls.raw + "&fit=crop&w=500&h=500";
   img.setAttribute("src", imgSrc);
 
   // criar div pai
