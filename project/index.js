@@ -1,6 +1,6 @@
   let paginaAtual = 1;
-  let totalPaginas;
-  var enderecoInicial = 'https://api.unsplash.com/photos?orderby=lastest&per_page=24';
+  let totalPaginas = 1;
+  var enderecoInicial = 'https://api.unsplash.com/photos?orderby=lastest';
   var enderecoProcura = 'https://api.unsplash.com/search/photos?query=';
   var chaveAPI = '&per_page=24&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
   var pagina = '&page='
@@ -10,9 +10,8 @@
 
 
 function carregar() 
-{
-  
-    enderecoTotal = enderecoInicial+  chaveAPI   + pagina + paginaAtual ;
+{ 
+    enderecoTotal = enderecoInicial+  chaveAPI;
 
     $.ajax(
     {
@@ -21,12 +20,11 @@ function carregar()
           async: true,
           success : function(data, status, response) 
           {    
-            adicionarFotos(data);  
-            totalPaginas      
+            adicionarFotos(data); 
+            inativarPrevious();
+            inativarNext(); 
           }
     });    
-    inativarPrevious();
-    inativarNext();
 }
 
 
@@ -60,18 +58,18 @@ function procurar()
           {
             totalPaginas = data.total_pages;
             adicionarFotosProcura(data);   
+            inativarPrevious();
+            inativarNext();
           }   
       }
     });
     
   }
-  inativarPrevious();
-  inativarNext();
+  
 }
 
 function nextPage() 
 {
-
       var enderecoProcuraCompleto = enderecoProcura + inputText.value + pagina + paginaAtual + chaveAPI;
       $.ajax(
         {
@@ -94,6 +92,7 @@ function nextPage()
 
 function previousPage() 
 {
+
 
       var enderecoProcuraCompleto = enderecoProcura + inputText.value + pagina + paginaAtual + chaveAPI;
       $.ajax(
@@ -238,19 +237,19 @@ function seguinte(faseCarregamento) { //o parametro serve para diferenciar da pa
 
 function inativarPrevious() {
   if (paginaAtual == 1) {
-  $('#previous').removeClass('page-item').addClass('page-item disabled');
+  $('#previous').attr("disabled", true);
   }
   else {
-    $('#previous').removeClass('page-item disabled').addClass('page-item');
+    $('#previous').removeAttr("disabled");
   }
 }
 
 function inativarNext() {
   if (paginaAtual == totalPaginas) {
-  $('#next').removeClass('page-item').addClass('page-item disabled');
+  $('#next').attr("disabled", true);
   }
   else {
-    $('#next').removeClass('page-item disabled').addClass('page-item');
+    $('#next').removeAttr("disabled");
   }
 }
 
@@ -275,16 +274,18 @@ function programarCarregamentoPagina() {
 function programarBotaoSearch() {
   $('#searchButton').on("click", procurar);
 }
-/*
-function programarAvisoPagina() {
-    $(window.totalPaginas).on ("change", inativarPrevious);
-    $(window.totalPaginas).on("change", inativarNext);
+
+function programarBotaoPrevious() {
+  $('#previous').on("click", previousPage);
 }
-*/
+function programarBotaoNext() {
+  $('#next').on("click", nextPage);
+}
 
 
 programarCarregamentoPagina();
-//programarAvisoPagina();
+programarBotaoNext();
+programarBotaoPrevious();
 programarBotaoClosemodal();
 programarBotoesPaginacao();
 programarBotaoSearch();
