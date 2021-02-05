@@ -2,11 +2,11 @@
   let totalPaginas = 1;
   var enderecoInicial = 'https://api.unsplash.com/photos?orderby=lastest';
   var enderecoProcura = 'https://api.unsplash.com/search/photos?query=';
-  var chaveAPI = '&per_page=24&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
+  var chaveAPI = '&per_page=24&client_id=JEaif-1am7vWMlyOPLxudsimoffeja7ddH8WM8xmt1w';
   var pagina = '&page='
   var enderecoTotal;
   let trigger;
- 
+
 
 
 function carregar() 
@@ -217,7 +217,6 @@ function fecharModal() {
   var modal = $('#modal_list');
   modal.modal('hide'); 
 }
-
 
 function anterior(faseCarregamento) {//o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
   paginaAtual --;
