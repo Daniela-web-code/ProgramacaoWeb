@@ -1,21 +1,121 @@
   let paginaAtual = 1;
   let totalPaginas;
+  var enderecoInicial = 'https://api.unsplash.com/photos?orderby=lastest&per_page=24';
+  var enderecoProcura = 'https://api.unsplash.com/search/photos?query=';
+  var chaveAPI = '&per_page=24&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
+  var pagina = '&page='
+  var enderecoTotal;
+  let trigger;
+ 
 
-function carregar(){
-  var endereco = 'https://api.unsplash.com/photos?orderby=lastest&per_page=24&page='
-  var chaveAPI = '&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc'
-  var carregamento = endereco + paginaAtual + chaveAPI;
 
-	$.ajax(
+function carregar() 
+{
+  
+    enderecoTotal = enderecoInicial+  chaveAPI   + pagina + paginaAtual ;
+
+    $.ajax(
     {
-	  	url : carregamento,
-	  	type:"get",
-	  	async: true,
-       success : function(data, status, response) {
-        adicionarFotos(data);
-       }
-   });    
+          url : enderecoTotal,
+          type:"get",
+          async: true,
+          success : function(data, status, response) 
+          {    
+            adicionarFotos(data);  
+            totalPaginas      
+          }
+    });    
+    inativarPrevious();
+    inativarNext();
+}
+
+
+function procurar() 
+{
+  paginaAtual = 1;
+  var inputText = document.getElementById("inputText");
+  if(inputText.value == "") 
+  { 
+    var modal = $('#modal_list');
+    modal.modal('show');
   }
+
+  else
+  { 
+    var enderecoprocura = 'https://api.unsplash.com/search/photos?query=';
+    var pagina = '&page='
+    var chaveAPI = '&per_page=24&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
+    var enderecoProcuraCompleto = enderecoprocura + inputText.value + pagina + paginaAtual + chaveAPI;
+    $.ajax(
+      {
+        url : enderecoProcuraCompleto,
+        type:"get",
+        async: true,
+        success : function(data, status, response) {
+          if(data.results == 0) 
+          {
+            $('#container-images').empty();
+              mostrarPagina0Results();
+          }else
+          {
+            totalPaginas = data.total_pages;
+            adicionarFotosProcura(data);   
+          }   
+      }
+    });
+    
+  }
+  inativarPrevious();
+  inativarNext();
+}
+
+function nextPage() 
+{
+
+      var enderecoProcuraCompleto = enderecoProcura + inputText.value + pagina + paginaAtual + chaveAPI;
+      $.ajax(
+        {
+              url : enderecoProcuraCompleto  ,
+              type:"get",
+              async: true,
+              success : function(data, status, response) {
+                if(data.results == 0) 
+                {
+                  $('#container-images').empty();
+                    mostrarPagina0Results();
+                }else
+                {
+                  totalPaginas = data.total_pages;
+                  adicionarFotosProcura(data);   
+                }   
+            }
+          });
+}
+
+function previousPage() 
+{
+
+      var enderecoProcuraCompleto = enderecoProcura + inputText.value + pagina + paginaAtual + chaveAPI;
+      $.ajax(
+        {
+              url : enderecoProcuraCompleto  ,
+              type:"get",
+              async: true,
+              success : function(data, status, response) {
+                if(data.results == 0) 
+                {
+                  $('#container-images').empty();
+                    mostrarPagina0Results();
+                }else
+                {
+                  totalPaginas = data.total_pages;
+                  adicionarFotosProcura(data);   
+                }   
+            }
+          });
+}
+
+
 
 function mostrarPagina0Results() { // mostrar um 0 results, falta completar
 
@@ -35,7 +135,7 @@ function mostrarPagina0Results() { // mostrar um 0 results, falta completar
 
   var divPrincipal = document.createElement("div");
   divPrincipal.className = "card col-3";
-divPrincipal.id = "foto";	
+  divPrincipal.id = "foto";	
   divPrincipal.appendChild(h5);
   divPrincipal.appendChild(img);
   divPrincipal.appendChild(h5_2);
@@ -114,46 +214,6 @@ function criarFoto(foto) {
   container.appendChild(divPrincipal);
 }
 
-
-
-
-function procurar() {
-
-
-  var inputText = document.getElementById("inputText");
-  if(inputText.value == "") 
-  { 
-    var modal = $('#modal_list');
-    modal.modal('show');
-  }
-
-  else{ 
-    var enderecoprocura = 'https://api.unsplash.com/search/photos?query=';
-    var pagina = '&page='
-    var chaveAPI = '&per_page=24&client_id=KKu0hH-tHt0kR5wLLl28sJpsyzYj8bZEOMtexV1L4Jc';
-    var enderecoProcuraCompleto = enderecoprocura + inputText.value + pagina + paginaAtual + chaveAPI;
-    $.ajax(
-      {
-        url : enderecoProcuraCompleto,
-        type:"get",
-        async: true,
-         success : function(data, status, response) {
-          if(data.results == 0) {
-            $('#container-images').empty();
-              mostrarPagina0Results();
-           }else{
-            adicionarFotosProcura(data);
-
-            
-           }
-          
-         }
-     });
-     
-  }
-
-}
-
 function fecharModal() {
   var modal = $('#modal_list');
   modal.modal('hide'); 
@@ -163,49 +223,37 @@ function fecharModal() {
 function anterior(faseCarregamento) {//o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
   paginaAtual --;
   console.log(paginaAtual);
-  carregar();
-  /*if (paginaAtual == 1) {
-    //document.getElementById("previous").disabled = true;
-    //document.getElementById("next").disabled = false;
-    alert("ESTOU AQUI");
-  }
-    
-  else { // Pode vir de carregar ou procurar
-    if (faseCarregamento == "carregar") {
-      carregar();
-    }
-    pagina--;
-    procurar();
-  }*/
-}
-
-function inativarPrevious() {
-  if (paginaAtual == 1) {
-    alert("estive")
-  $('#previous2').removeClass('page-item').addClass('page-item disabled');
-  }
-  else {
-    $('#previous2').removeClass('page-item disabled').addClass('page-item');
-  }
+  previousPage();
+  inativarPrevious();
+  inativarNext();
 }
 
 function seguinte(faseCarregamento) { //o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
   paginaAtual++;
   console.log(paginaAtual);
-  carregar();
- /*
-  if (pagina == fotos) {
-    //document.getElementById("previous").disabled = false;
-    //document.getElementById("next").disabled = true;
-    alert("ESTOU AQUI");
-  }
-
-  else {
-    pagina++;
-    procurar();
-  }
-*/
+  nextPage();
+  inativarPrevious();
+  inativarNext();
 }
+
+function inativarPrevious() {
+  if (paginaAtual == 1) {
+  $('#previous').removeClass('page-item').addClass('page-item disabled');
+  }
+  else {
+    $('#previous').removeClass('page-item disabled').addClass('page-item');
+  }
+}
+
+function inativarNext() {
+  if (paginaAtual == totalPaginas) {
+  $('#next').removeClass('page-item').addClass('page-item disabled');
+  }
+  else {
+    $('#next').removeClass('page-item disabled').addClass('page-item');
+  }
+}
+
 
 function programarBotaoClosemodal() {
   var botaoCloseModal = document.getElementById("botaoCloseModal");
@@ -221,19 +269,22 @@ function programarBotoesPaginacao() {
 }
 
 function programarCarregamentoPagina() {
-  $(window).on("load", carregar);
+  $(window).on("load", carregar("inicio"));
 }
 
 function programarBotaoSearch() {
   $('#searchButton').on("click", procurar);
 }
-
+/*
 function programarAvisoPagina() {
-    $(window).on("load", inativarPrevious);
+    $(window.totalPaginas).on ("change", inativarPrevious);
+    $(window.totalPaginas).on("change", inativarNext);
 }
+*/
 
-programarBotaoClosemodal();
+
 programarCarregamentoPagina();
-programarBotaoSearch();
+//programarAvisoPagina();
+programarBotaoClosemodal();
 programarBotoesPaginacao();
-programarAvisoPagina();
+programarBotaoSearch();
