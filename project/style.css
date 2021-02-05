@@ -17,6 +17,7 @@ nav {
 }
 .row {
     text-align: center;
+    justify-content: center;
     padding-bottom: 12px;
 }
 .row>* {
@@ -44,6 +45,7 @@ a:hover {
     margin-top: 24px;
 }
 .card {
+    display: flex;
     justify-content: center;
 }
 img {
