@@ -19,6 +19,10 @@ nav {
     text-align: center;
     padding-bottom: 12px;
 }
+.row>* {
+    padding-left: 0;
+    padding-right: 0;
+}
 .rowPagination {
     display: flex;
     justify-content: center;
@@ -34,11 +38,23 @@ a {
 a:hover {
     color: darkgrey;
 }
-
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+.card {
+    justify-content: center;
+}
+img {
+    max-width: 328px;
+    max-height: 204px;
+    object-fit: cover;
+}
 
  @media (min-width: 576px){
     #foto{
-            width: ;
+            width: 25px;
             height: 25px;
     }
  }
