@@ -47,37 +47,7 @@ a:hover {
     justify-content: center;
 }
 img {
-    max-width: 328px;
-    max-height: 204px;
+    width: 328px;
+    height: 204px;
     object-fit: cover;
 }
-
- @media (min-width: 576px){
-    #foto{
-            width: 25px;
-            height: 25px;
-    }
- }
-
-  @media (min-width: 768px){
-  #foto{
-      
-       width: 600px;
-     height: 900px;
-    }
- }
-
-  @media (min-width: 992px){
-  #foto{
-      
-      width: 500px;
-     height: 750px;
-    }
- }
-
-  @media (min-width: 1200px){
-  #foto{
-    width: 300px;
-     height: 600px;
-    }
- }

@@ -204,7 +204,7 @@ function criarFoto(foto) {
 
   // criar div pai
   var divPrincipal = document.createElement("div");
-  divPrincipal.className = "card col-3";
+  divPrincipal.className = "card col-lg-3 col-md-4 col-sm-6 col-xs-12";
   divPrincipal.appendChild(img);
   divPrincipal.appendChild(div);
   divPrincipal.appendChild(divIcon);
