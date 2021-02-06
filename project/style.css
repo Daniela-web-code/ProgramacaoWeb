@@ -11,7 +11,7 @@ nav {
 .search {
     padding-right: var(--bs-gutter-x,.75rem);
     padding-left: var(--bs-gutter-x,.75rem);
-}
+}   
 .form-control {
     width: 200px;
 }
@@ -20,6 +20,7 @@ nav {
     justify-content: center;
     padding-bottom: 12px;
 }
+
 .row>* {
     padding-left: 0;
     padding-right: 0;

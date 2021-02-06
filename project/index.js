@@ -1,30 +1,31 @@
-  let paginaAtual = 1;
-  let totalPaginas = 1;
-  var enderecoInicial = 'https://api.unsplash.com/photos?orderby=lastest';
-  var enderecoProcura = 'https://api.unsplash.com/search/photos?query=';
-  var chaveAPI = '&per_page=24&client_id=JEaif-1am7vWMlyOPLxudsimoffeja7ddH8WM8xmt1w';
-  var pagina = '&page='
-  var enderecoTotal;
-  let trigger;
+let paginaAtual = 1;
+let totalPaginas = 1;
+var enderecoInicial = 'https://api.unsplash.com/photos?orderby=lastest';
+var enderecoProcura = 'https://api.unsplash.com/search/photos?query=';
+var chaveAPI = '&per_page=24&client_id=JEaif-1am7vWMlyOPLxudsimoffeja7ddH8WM8xmt1w';
+var pagina = '&page='
+var enderecoTotal;
+let trigger;
+
 
 
 
 function carregar() 
 { 
-    enderecoTotal = enderecoInicial+  chaveAPI;
+  enderecoTotal = enderecoInicial +  chaveAPI;
 
-    $.ajax(
-    {
-          url : enderecoTotal,
-          type:"get",
-          async: true,
-          success : function(data, status, response) 
-          {    
-            adicionarFotos(data); 
-            inativarPrevious();
-            inativarNext(); 
-          }
-    });    
+  $.ajax(
+  {
+    url : enderecoTotal,
+    type:"get",
+    async: true,
+    success : function(data, status, response) 
+    {    
+      adicionarFotos(data); 
+      inativarPrevious();
+      inativarNext(); 
+    }
+  });    
 }
 
 
@@ -70,24 +71,25 @@ function procurar()
 
 function nextPage() 
 {
-      var enderecoProcuraCompleto = enderecoProcura + inputText.value + pagina + paginaAtual + chaveAPI;
-      $.ajax(
+  var enderecoProcuraCompleto = enderecoProcura + inputText.value + pagina + paginaAtual + chaveAPI;
+  $.ajax(
+    {
+      url : enderecoProcuraCompleto  ,
+      type:"get",
+      async: true,
+      success : function(data, status, response)
         {
-              url : enderecoProcuraCompleto  ,
-              type:"get",
-              async: true,
-              success : function(data, status, response) {
-                if(data.results == 0) 
-                {
-                  $('#container-images').empty();
-                    mostrarPagina0Results();
-                }else
-                {
-                  totalPaginas = data.total_pages;
-                  adicionarFotosProcura(data);   
-                }   
-            }
-          });
+          if(data.results == 0) 
+          {
+            $('#container-images').empty();
+              mostrarPagina0Results();
+          }else
+          {
+            totalPaginas = data.total_pages;
+            adicionarFotosProcura(data);   
+          }   
+        }
+    });
 }
 
 function previousPage() 
@@ -133,7 +135,7 @@ function mostrarPagina0Results() { // mostrar um 0 results, falta completar
   h5_2.innerText = "results";
 
   var divPrincipal = document.createElement("div");
-  divPrincipal.className = "card col-3";
+  divPrincipal.className = "card col-3 ";
   divPrincipal.id = "foto";	
   divPrincipal.appendChild(h5);
   divPrincipal.appendChild(img);
@@ -229,7 +231,7 @@ function fecharModal() {
 
 function anterior(faseCarregamento) {//o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
   paginaAtual --;
-  console.log(paginaAtual);
+  //console.log(paginaAtual);
   previousPage();
   inativarPrevious();
   inativarNext();
@@ -237,7 +239,7 @@ function anterior(faseCarregamento) {//o parametro serve para diferenciar da pag
 
 function seguinte(faseCarregamento) { //o parametro serve para diferenciar da pagina incial para procuras. para a pagina inicial quero usar o método carregar(), para pesquisas o procurar() | difere o url.
   paginaAtual++;
-  console.log(paginaAtual);
+  //console.log(paginaAtual);
   nextPage();
   inativarPrevious();
   inativarNext();
@@ -276,24 +278,26 @@ function programarBotoesPaginacao() {
 }
 
 function programarCarregamentoPagina() {
-  $(window).on("load", carregar("inicio"));
+  $(window).on("load", carregar);
 }
 
 function programarBotaoSearch() {
   $('#searchButton').on("click", procurar);
 }
-
+/*
 function programarBotaoPrevious() {
   $('#previous').on("click", previousPage);
 }
 function programarBotaoNext() {
   $('#next').on("click", nextPage);
 }
-
+*/
 
 programarCarregamentoPagina();
+/*
 programarBotaoNext();
 programarBotaoPrevious();
+*/
 programarBotaoClosemodal();
 programarBotoesPaginacao();
 programarBotaoSearch();
